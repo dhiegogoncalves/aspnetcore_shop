@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace aspnetcore_shop.Controllers
 {
-    [Route("products")]
+    [Route("v1/products")]
     public class ProductController : ControllerBase
     {
         [HttpGet]

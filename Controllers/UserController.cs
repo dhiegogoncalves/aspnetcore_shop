@@ -37,7 +37,7 @@ namespace aspnetcore_shop.Controllers
 
             try
             {
-                //model.Role = "employee";
+                model.Role = "employee";
 
                 context.Users.Add(model);
                 await context.SaveChangesAsync();
