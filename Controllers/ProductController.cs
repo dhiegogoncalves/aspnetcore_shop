@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using aspnetcore_shop.Data;
 using aspnetcore_shop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,7 @@ namespace aspnetcore_shop.Controllers
     {
         [HttpGet]
         [Route("")]
+        [AllowAnonymous]
         public async Task<ActionResult<List<Product>>> Get([FromServices] DataContext context)
         {
             var products = await context.Products.Include(x => x.Category).AsNoTracking().ToListAsync();
@@ -22,6 +24,7 @@ namespace aspnetcore_shop.Controllers
 
         [HttpGet]
         [Route("{id:int}")]
+        [AllowAnonymous]
         public async Task<ActionResult<Product>> GetById([FromServices] DataContext context, int id)
         {
             var product = await context.Products.Include(x => x.Category).AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
@@ -38,6 +41,7 @@ namespace aspnetcore_shop.Controllers
 
         [HttpPost]
         [Route("")]
+        [Authorize(Roles = "employee")]
         public async Task<ActionResult<Product>> Post([FromServices] DataContext context, [FromBody] Product model)
         {
             if (ModelState.IsValid)
