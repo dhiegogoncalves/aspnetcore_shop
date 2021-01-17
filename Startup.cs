@@ -22,7 +22,7 @@ namespace aspnetcore_shop
         {
 
             services.AddControllers();
-            services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+            services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
             services.AddScoped<DataContext, DataContext>();
 
             services.AddSwaggerGen(c =>
